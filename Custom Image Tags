@@ -1,0 +1,23 @@
+function my_custom_img( $id = '' ){
+
+  if( $id !== '' ){
+    $meta = wp_get_attachment_image_src( $id, 'full' ); 
+    $tags = get_post( $id );
+    // Assemble the meta data of the image object
+    $html = array (
+      'alt'         => get_post_meta( $logo->ID, '_wp_attachment_image_alt', true ),
+      'caption'     => $tags->post_excerpt,
+      'description' => $tags->post_content,
+      'height'      => $meta[2],
+      'href'        => get_permalink( $id ),
+      'src'         => $meta[0],
+      'title'       => $tags->post_title,
+      'width'       => $meta[1],
+    );
+  }
+  // If there is no $id, do nothing 
+  else {
+    return;
+  }
+  return $html;
+}
